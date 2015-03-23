@@ -137,7 +137,6 @@ public class TDHttpClient {
             httpget.setConfig(localConfig);
 
             HttpResponse response = httpClient.execute(httpget);
-            changeCookies(response.getAllHeaders());
             //            System.out.println(response + " response headers------------------------------");
             Header[] headers = response.getAllHeaders();
             for (Header header : headers) {
@@ -183,7 +182,6 @@ public class TDHttpClient {
             HttpClient httpClient = buildClient();
             HttpResponse response = httpClient.execute(httpGet);
             // 获取消息头的信息
-            changeCookies(response.getAllHeaders());
             EntityUtils.consume(response.getEntity());
         } catch (ClientProtocolException e) {
             e.printStackTrace();
@@ -194,16 +192,6 @@ public class TDHttpClient {
         }
     }
 
-    public void changeCookies(Header[] headers) {
-        for (int i = 0; i < headers.length; i++) {
-            if (headers[i].getName().equals("Set-Cookie")) {
-                String cookie = headers[i].getValue();
-                String cookieName = cookie.split("=")[0];
-                String cookieValue = cookie.split("=")[1].split(";")[0];
-                cookieMap.put(cookieName, cookieValue);
-            }
-        }
-    }
 
     public String getCookies() {
         StringBuilder sb = new StringBuilder();

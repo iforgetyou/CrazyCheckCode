@@ -9,7 +9,7 @@ import java.net.URISyntaxException;
 public class TDHttpClientTest {
     TDHttpClient client = new TDHttpClient();
 
-    @Test
+    //    @Test
     public void testDownLoadImage() throws IOException, InterruptedException {
         String localDir = "d:/12306/";
 
@@ -29,16 +29,16 @@ public class TDHttpClientTest {
         String localUrl = localDir + System.currentTimeMillis() + ".jpeg";
         //        client.initCookie();
         client.downloadImage(localUrl);
-
+        Thread.sleep(2000);
 
         client.checkCode(
                 new Position(1, 2),
                 new Position(4, 2)
         );
-        client.checkCode(
-                new Position(2, 1),
-                new Position(3, 2)
-        );
+        //        client.checkCode(
+        //                new Position(2, 1),
+        //                new Position(3, 2)
+        //        );
     }
 
     @Test

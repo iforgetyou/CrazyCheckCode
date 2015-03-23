@@ -23,12 +23,10 @@ public class FileMd5CheckTest {
             if (filesMap.containsKey(hash)) {
                 System.out.println("找到相同");
             } else {
-                System.out.println("没有找到,放入hashtable");
+//                System.out.println("没有找到,放入hashtable");
                 filesMap.put(hash.toString(), file);
             }
             System.out.println(hash);
         }
-
-
     }
 }
