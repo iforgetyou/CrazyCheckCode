@@ -27,6 +27,14 @@
     <util:list id="messageConverters">
         <!-- <bean class="com.lovemoment.filter.requestparser.TriMessageConverter" /> -->
         <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+        <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter">
+            <property name="supportedMediaTypes">
+                <list>
+                    <value>image/jpeg</value>
+                    <value>image/png</value>
+                </list>
+            </property>
+        </bean>
         <bean
                 class="org.springframework.http.converter.ResourceHttpMessageConverter">
             <property name="supportedMediaTypes">

@@ -1,6 +1,7 @@
 package com.nothing;
 
 import com.nothing.pojo.Position;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.*;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.CookieStore;
@@ -23,6 +24,7 @@ import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
+import org.springframework.stereotype.Service;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -40,6 +42,7 @@ import java.util.*;
  * Created by zyan.zhang on 2015/3/20.
  * 12306的http客户端服务
  */
+@Service
 public class TDHttpClient {
     String DOMAIN_NAME = "kyfw.12306.cn";
     String imageUrl = "https://kyfw.12306.cn/otn/passcodeNew/getPassCodeNew?module=login&rand=sjrand&0.394159632967785";
@@ -124,7 +127,7 @@ public class TDHttpClient {
     }
 
     // 生成图片函数
-    public void downloadImage(String fileURL) throws IOException {
+    public void downloadImage(String fileURL) {
         buildClient();
 
         BufferedOutputStream out = null;
@@ -144,27 +147,23 @@ public class TDHttpClient {
             }
 
             // 生成图片
-            File file = new File(fileURL);
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            out = new BufferedOutputStream(
-                    new FileOutputStream(file));
-
-            response.getEntity().writeTo(out);
+            //            File file = new File(fileURL);
+            //            if (!file.exists()) {
+            //                file.createNewFile();
+            //            }
+            //            out = new BufferedOutputStream(
+            //                    new FileOutputStream(file));
+            //
+            //            response.getEntity().writeTo(out);
+            byte[] bytes = IOUtils.toByteArray(response.getEntity().getContent());
             EntityUtils.consume(response.getEntity());
 
-        } catch (ClientProtocolException e) {
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (Exception ex) {
-            ex.printStackTrace();
         } finally {
             if (out != null) {
-                out.close();
+                //                out.close();
             }
         }
     }
