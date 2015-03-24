@@ -5,10 +5,7 @@ import com.nothing.service.RandcodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by zyan.zhang on 2015/3/23.
@@ -38,7 +35,7 @@ public class RandcodeController {
     @RequestMapping(method = RequestMethod.POST)
     public
     @ResponseBody
-    boolean checkRandCode() {
-        return randcodeService.checkRandcode();
+    void checkRandCode(@RequestParam String positionStr) {
+        randcodeService.checkRandcode(positionStr);
     }
 }
